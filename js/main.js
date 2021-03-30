@@ -11,17 +11,28 @@ const CHARACTERS = "0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
   };
 })();
 
+function uniformGen(range) {
+  let max = Math.floor(2**32 / range) * range;
+  let x = max;
+
+  do {
+    x = Math.floor(Math.random() * 2**32);
+  } while (x >= max);
+
+  return (x % range);
+}
+
 function maybePush(myArray) {
-  let char = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
-  if (Math.random() > 0.5) {
+  let char = CHARACTERS[uniformGen(CHARACTERS.length)];
+  if (Math.random() >= 0.5) {
     return myArray.push(char)
   }
 }
 
 $.getJSON("/wordlist.json", function(wordlist) {
   let password = [];
-  for (var i = 0; i < 3; i++) {
-    let word = wordlist['words'][Math.floor(Math.random() * wordlist['words'].length)];
+  for (var i = 0; i < 4; i++) {
+    let word = wordlist['words'][uniformGen(wordlist['words'].length)];
     password.push(word.charAt(0).toUpperCase() + word.slice(1));
     maybePush(password);
   }
