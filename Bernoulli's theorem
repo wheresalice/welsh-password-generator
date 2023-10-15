@@ -1,0 +1,37 @@
+public class BernoulliTheorem {
+
+    public static void main(String[] args) {
+        // Given values
+        double pressure1 = 1000.0; // Pressure at point 1 (Pa)
+        double velocity1 = 10.0;   // Velocity at point 1 (m/s)
+        double height1 = 5.0;     // Height at point 1 (m)
+
+        double pressure2 = 800.0;  // Pressure at point 2 (Pa)
+        double velocity2 = 15.0;  // Velocity at point 2 (m/s)
+        double height2 = 10.0;    // Height at point 2 (m)
+
+        // Calculate the total energy at points 1 and 2
+        double energy1 = calculateEnergy(pressure1, velocity1, height1);
+        double energy2 = calculateEnergy(pressure2, velocity2, height2);
+
+        // Display the results
+        System.out.println("Energy at Point 1: " + energy1 + " J");
+        System.out.println("Energy at Point 2: " + energy2 + " J");
+
+        // Check Bernoulli's theorem
+        if (Math.abs(energy1 - energy2) < 1e-6) {
+            System.out.println("Bernoulli's theorem is satisfied!");
+        } else {
+            System.out.println("Bernoulli's theorem is not satisfied.");
+        }
+    }
+
+    // Function to calculate total energy
+    public static double calculateEnergy(double pressure, double velocity, double height) {
+        // Using Bernoulli's theorem: E = P + 0.5 * rho * v^2 + rho * g * h
+        double density = 1.0; // Assuming constant density (incompressible fluid)
+        double gravity = 9.81; // Acceleration due to gravity (m/s^2)
+        double energy = pressure + 0.5 * density * velocity * velocity + density * gravity * height;
+        return energy;
+    }
+}
